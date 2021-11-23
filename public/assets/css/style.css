@@ -1,0 +1,16 @@
+.error {
+			color: #f46a6a !important;
+		}
+
+.login-bg {
+	background-size: cover;
+    background-image: linear-gradient(281deg, rgb(68 68 68 / 30%), rgb(38 38 38 / 80%)), url(../../assets/images/bg-course.jpg);
+}
+
+
+
+
+
+.btn-rounded-corner{
+    border-radius: 10px !important;
+}
