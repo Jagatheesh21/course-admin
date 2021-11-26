@@ -10,7 +10,12 @@
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/picker.date.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
-
+<script src="{{ asset('global_assets/js/plugins/forms/tags/tagsinput.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/tags/tokenfield.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/ui/prism.min.js')}}"></script>
+<script src="{{ asset('assets/js/app.js')}}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/form_tags_input.js')}}"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -80,136 +85,143 @@
 			<div class="card">
 					<h5 class="card-title">Create new Course</h5>
 
-					<div class="header-elements">
+					<!-- <div class="header-elements">
 						<div class="list-icons">
 							<a class="list-icons-item" data-action="collapse"></a>
 							<a class="list-icons-item" data-action="reload"></a>
 							<a class="list-icons-item" data-action="remove"></a>
 						</div>
-					</div>
-				</div>
-
-
+					</div> -->
+				
 				<div class="card-header header-elements-inline">
-				<div class="card-body mt-3">
-					<form action="{{route('store-course')}}" method="post" class="form-validate-jquery" enctype="multipart/form-data">
-						@csrf
-						<fieldset>
+					<div class="card-body mt-1">
+						<form action="{{route('store-course')}}" method="post" class="form-validate-jquery" enctype="multipart/form-data">
+							@csrf
+							<fieldset>
 
-							<div class="collapse show" id="demo1" style="">
+								<div class="collapse show" id="demo1" style="">
 
-								<div class="mt-5 form-group row">
-									<label class="col-lg-3 col-form-label">Course Category:</label>
-									<div class="col-lg-9">
-										<select class="form-control required" id="category" name="category_id">
+									<div class="mt-5 form-group row">
+										<label class="col-lg-3 col-form-label">Course Category:</label>
+										<div class="col-lg-9">
+											<select class="form-control required" id="category" name="category_id">
 
-                        <option value="">Choose Course Category</option>
-                        @foreach($categories as $category)
-                        <option value="{{$category->id}}">{{$category->cat_name}}</option>
-                        @endforeach
+						                        <option value="">Choose Course Category</option>
+						                        @foreach($categories as $category)
+						                        <option value="{{$category->id}}">{{$category->cat_name}}</option>
+						                        @endforeach
 
-		                </select>
+								                </select>
+										</div>
+								    </div>
+
+
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label">Course Name:</label>
+										<div class="col-lg-9">
+											<input type="text" name="name" class="form-control required"
+												value="{{old('name')}}" placeholder="Your Course Name">
+										</div>
 									</div>
-							    </div>
 
 
-								<div class="form-group row">
-									<label class="col-lg-3 col-form-label">Course Name:</label>
-									<div class="col-lg-9">
-										<input type="text" name="name" class="form-control required"
-											value="{{old('name')}}" placeholder="Your Course Name">
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label">Course Description:</label>
+										<div class="col-lg-9">
+											<textarea rows="5" name="description" cols="5" class="form-control required"
+												placeholder="Enter Course Description">{{old('desc')}}</textarea>
+										</div>
+								    </div>
+
+
+								<!-- Inside form group with addon -->
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label">Tags</label>
+										<div class="col-lg-9">
+											<div class="input-group">
+											<span class="input-group-prepend">
+												<span class="input-group-text"><i class="icon-price-tags"></i></span>
+											</span>
+											<input type="text" class="form-control tokenfield" name="tags" data-fouc required="" placeholder="Type Here ..">
+										</div>
+										</div>
+										
 									</div>
-								</div>
+									<!-- /inside form group with addon -->
 
-
-								<div class="form-group row">
-									<label class="col-lg-3 col-form-label">Course Description:</label>
-									<div class="col-lg-9">
-										<textarea rows="5" name="description" cols="5" class="form-control required"
-											placeholder="Enter Course Description">{{old('desc')}}</textarea>
+									<div class="form-group row">
+										<label class="col-form-label col-lg-3 required">Course Image</label>
+										<div class="col-lg-9">
+											<div class="custom-file">
+												<input type="file" name="file" accept="image/*" class="custom-file-input" id="customFile" required="">
+												<label class="custom-file-label" for="customFile">Choose file</label>
+											</div>
+										</div>
 									</div>
-							    </div>
 
+									<!-- <div class="form-group row">
+										<label class="col-lg-3 col-form-label">Course Start Date :</label>
+										<div class="col-lg-9">
+											<div class="input-group">
+											<span class="input-group-prepend">
 
+													<span class="input-group-text"><i class="icon-calendar22"></i></span>
 
-								<!-- <div class="form-group row">
-									<label class="col-lg-3 col-form-label">Course Start Date :</label>
-									<div class="col-lg-9">
-										<div class="input-group">
-										<span class="input-group-prepend">
+													</span>
 
-												<span class="input-group-text"><i class="icon-calendar22"></i></span>
+													<input type="text required" name="date" id="date" class="form-control required" value="">
+										</div>
+										</div>
+									</div> -->
 
-												</span>
+									<!-- <div class="form-group row">
+										<label class="col-lg-3 col-form-label">Course End Date :</label>
+										<div class="col-lg-9">
+											<div class="input-group">
 
-												<input type="text required" name="date" id="date" class="form-control required" value="">
-									</div>
-									</div>
-								</div> -->
+													<span class="input-group-prepend">
 
-								<!-- <div class="form-group row">
-									<label class="col-lg-3 col-form-label">Course End Date :</label>
-									<div class="col-lg-9">
-										<div class="input-group">
+													<span class="input-group-text"><i class="icon-calendar22"></i></span>
 
-												<span class="input-group-prepend">
+													</span>
 
-												<span class="input-group-text"><i class="icon-calendar22"></i></span>
+													<input type="text required" name="end_date" id="end_date" class="form-control required" value="">
 
-												</span>
-
-												<input type="text required" name="end_date" id="end_date" class="form-control required" value="">
+											</div>
 
 										</div>
+									</div> -->
 
+									<input type="hidden" name="author_id" value="{{auth()->user()->id}}" class="form-control required"
+										placeholder="Course Author Name">
+									<div class="mt-5 form-group row">
+										<label class="col-lg-3 col-form-label">Course Author :</label>
+										<div class="col-lg-9">
+											<input type="text" name="author" value="{{auth()->user()->name}}" readonly class="form-control">
+
+										</div>
 									</div>
-								</div> -->
 
-
-
-
-
-								<input type="hidden" name="author_id" value="{{auth()->user()->id}}" class="form-control required"
-									placeholder="Course Author Name">
-								<div class="mt-5 form-group row">
-									<label class="col-lg-3 col-form-label">Course Author :</label>
-									<div class="col-lg-9">
-										<input type="text" name="author" value="{{auth()->user()->name}}" readonly class="form-control"
-
-									</div>
 								</div>
 
+							</fieldset>
 
+							<div class="text-right">
+								<button type="submit" class="btn btn-primary legitRipple">Create Course <i
+										class="icon-paperplane ml-2"></i></button>
 							</div>
+						</form>
 
-
-
-
-
-
-
-						</fieldset>
-
-
-						<div class="text-right">
-							<button type="submit" class="btn btn-primary legitRipple">Create Course <i
-									class="icon-paperplane ml-2"></i></button>
-						</div>
-					</form>
-
+					</div>
 				</div>
+				<!-- /simple list -->
+
 			</div>
-			<!-- /simple list -->
 
 		</div>
-
-	</div>
 	<!-- /simple lists -->
 
-
-
-
-
-</div>
+	</div>
 <!-- /content area -->
+</div>
 @include('layouts.footer')

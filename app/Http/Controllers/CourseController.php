@@ -9,7 +9,8 @@ use App\Models\Module;
 use App\Models\Slot;
 use App\Models\Language;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
+use App\Helper\Files;
 use App\Models\SkillLevel;
 use App\Http\Requests\StoreCourseRequest;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -55,20 +56,37 @@ DB::commit();
       return view('Courses.course_overview',['languages'=>$languages,'skill_levels'=>$skill_levels,'course'=>$course,'modules'=>$modules,'slots'=>$slots]);
     }
 
-    public function storeCourse(StoreCourseRequest $request)
+    public function storeCourse(Request $request)
     {
+      $file = $request->file;
       DB::beginTransaction();
          try{
       $expanse = Course::where('category_id',$request->category_id)->where('name', $request->name)->first();
       if ($expanse) {
           return back()->with('error', 'Course Already Available');
       }
+
+      $path = public_path("courses");
+      if(!is_dir($path)) {
+
+        mkdir($path, 0755, true);
+      }
+        if($file)
+        {
+          $fileName = $file->getClientOriginalName();
+          $file->move($path, $fileName);
+      
+          //$request->file->move($path, $fileName);
+               
+        }
         $course = new Course;
         $course->category_id = $request->category_id;
         $course->name = $request->name;
         $course->slug = SlugService::createSlug(Course::class, 'slug', $request->name);
         $course->description = $request->description;
         $course->author_id = $request->author_id;
+        $course->tags = $request->tags;
+        $course->course_picture = 'courses/'.$fileName;
         $course->save();
 DB::commit();
       }catch (\Exception $e) {
@@ -91,12 +109,25 @@ DB::commit();
          return view('Courses.edit',['course' => $course,'categories'=>$categories]);
     }
     public function updateCourse(Request $request){
+      $file = $request->file;
+      $path = public_path("courses");
+      if(!is_dir($path)) {
+
+        mkdir($path, 0755, true);
+      }
+        if($file)
+        {
+          $fileName = $file->getClientOriginalName();
+          $file->move($path, $fileName);
+        }
       DB::beginTransaction();
          try{
       $course = Course::find($request->id);
       $course->name = $request->name;
       $course->category_id = $request->category_id;
       $course->description = $request->description;
+      $course->tags = $request->tags;
+      $course->course_picture = $fileName;
       $course->save();
       DB::commit();
       }catch (\Exception $e) {

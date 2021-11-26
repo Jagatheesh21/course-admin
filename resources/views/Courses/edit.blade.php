@@ -10,6 +10,12 @@
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/picker.date.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/tags/tagsinput.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/tags/tokenfield.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js')}}"></script>
+<script src="{{ asset('global_assets/js/plugins/ui/prism.min.js')}}"></script>
+<script src="{{ asset('assets/js/app.js')}}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/form_tags_input.js')}}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -128,6 +134,32 @@
 											placeholder="Enter Course Description">{{$course->description}}</textarea>
 									</div>
 							    </div>
+
+							    								<!-- Inside form group with addon -->
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label">Tags</label>
+										<div class="col-lg-9">
+											<div class="input-group">
+											<span class="input-group-prepend">
+												<span class="input-group-text"><i class="icon-price-tags"></i></span>
+											</span>
+											<input type="text" class="form-control tokenfield" name="tags" data-fouc required="" value="{{$course->tags}}" placeholder="Type Here ..">
+										</div>
+										</div>
+										
+									</div>
+									<!-- /inside form group with addon -->
+
+									<div class="form-group row">
+										<label class="col-form-label col-lg-3 required">Course Image</label>
+										<div class="col-lg-9">
+											<div class="custom-file">
+												<input type="file" name="file" accept="image/*" class="custom-file-input" id="customFile" required="">
+												<label class="custom-file-label" for="customFile">Choose file</label>
+											</div>
+										</div>
+									</div>
+
 									<input type="hidden" name="author_id" value="{{$course->author_id}}">
 								<div class="mt-5 form-group row">
 									<label class="col-lg-3 col-form-label">Course Author :</label>

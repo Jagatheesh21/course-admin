@@ -56,7 +56,7 @@
 
 							<div class="col-lg-8">
 
-								<select class="form-control" name="priority" required="">
+								<select class="form-control" name="priority" >
 									<option value="">Select Prioity</option>
 									@for($i=1;$i<=8;$i++)
 									<option value="{{$i}}">{{$i}}</option>

@@ -567,7 +567,9 @@
 									<h6 class="font-weight-semibold">What you will learn</h6>
 									<p class="mb-3">{{$course->description}}</p>
 
-
+									<div class="col-md-4">
+										<img src="../{{$course->course_picture}}"  class="card-img">
+									</div>
 
 				          <!-- <h6 class="font-weight-semibold">Course program</h6>
 									So slit more darn hey well wore submissive savage this shark aardvark fumed thoughtfully much drank when angelfish so outgrew some alas vigorously therefore warthog superb less oh groundhog less alas gibbered barked some hey despicably with aesthetic hamster jay by luckily. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame -->

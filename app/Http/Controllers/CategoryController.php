@@ -26,25 +26,33 @@ class CategoryController extends Controller
         return view('Category.list-category',['categories' => $categories]);
     }
 
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
-        // DB::beginTransaction();
-        //  try{
+        //dd($request->all());
+
+
+        DB::beginTransaction();
+         try{
         $expanse = Category::where('cat_name', $request->category)->first();
         if ($expanse) {
             return back()->with('error', 'Category Already Available');
+        }
+        $unique_priority = Category::where('priority',$request->priority)->first();
+        if($unique_priority)
+        {
+          return back()->with('error','Priority Value Already Taken');
         }
         $cat = new Category;
         $cat->cat_name = $request->category;
         $cat->priority = $request->priority;
         $cat->slug = SlugService::createSlug(Category::class, 'slug', $request->category);
         $cat->save();
-      //   DB::commit();
-      // }catch (\Exception $e) {
-      //             //Rollback Transaction
-      //           DB::rollback();
-      //           return back()->with('message',$e);
-      //       }
+        DB::commit();
+      }catch (\Exception $e) {
+                  //Rollback Transaction
+                DB::rollback();
+                return back()->with('message',$e);
+            }
         return back()->with('message', 'Category Added Successfully');
     }
 
