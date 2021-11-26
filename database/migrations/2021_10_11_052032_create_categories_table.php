@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('cat_name');
             $table->text('slug')->nullable();
+            $table->integer('priority')->nullable();
             $table->timestamps();
         });
     }

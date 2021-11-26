@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->text('slug')->nullable();
             $table->longText('description')->nullable();
             $table->integer('author_id')->nullable();
+            $table->string('course_picture')->nullable();
+            $table->text('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

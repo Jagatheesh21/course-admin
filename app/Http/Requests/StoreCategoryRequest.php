@@ -25,6 +25,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'cat_name'=>'required|unique:categories',
+            'priority'=>'required|unique:categories',
         ];
     }
 }

@@ -50,6 +50,22 @@
 							</div>
 
 						</div>
+						<div class="form-group row">
+
+							<label class="col-lg-4 col-form-label">Priority</label>
+
+							<div class="col-lg-8">
+
+								<select class="form-control" name="priority" required="">
+									<option value="">Select Prioity</option>
+									@for($i=1;$i<=8;$i++)
+									<option value="{{$i}}">{{$i}}</option>
+									@endfor()
+								</select>
+
+							</div>
+
+						</div>
 
 
 
