@@ -28,13 +28,11 @@ class SlotController extends Controller
     public function storeSlot(Request $request)
     {
           //dd($request->all());
-          DB::beginTransaction();
-         try{
+         //  DB::beginTransaction();
+         // try{
          $slot = new Slot;
          $slot->category_id = $request->category_id;
          $slot->course_id = $request->course_id;
-         $slot->skill_level_id = $request->skill_level_id;
-         $slot->language_id = $request->language_id;
          $slot->name = $request->name;
          $slot->slug = SlugService::createSlug(Slot::class, 'slug', $request->name);
          $slot->descrpition = $request->description;
@@ -44,12 +42,12 @@ class SlotController extends Controller
          $slot->price = round($request->price,2);
          $slot->status = 1;
          $slot->save();
-         DB::commit();
-      }catch (\Exception $e) {
-                  //Rollback Transaction
-                DB::rollback();
-                return back()->with('message',$e);
-            }
+      //    DB::commit();
+      // }catch (\Exception $e) {
+      //             //Rollback Transaction
+      //           DB::rollback();
+      //           return back()->with('message',$e);
+      //       }
          return back()->with('message', 'Slot Added Successfully');
     }
     public function editSlot($id)
@@ -71,8 +69,6 @@ DB::beginTransaction();
     $slot = Slot::find($request->id);
     $slot->category_id = $request->category_id;
     $slot->course_id = $request->course_id;
-    $slot->skill_level_id = $request->skill_level_id;
-    $slot->language_id = $request->language_id;
     $slot->name = $request->name;
     $slot->slug = SlugService::createSlug(Slot::class, 'slug', $request->name);
     $slot->descrpition = $request->description;

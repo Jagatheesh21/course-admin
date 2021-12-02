@@ -20,7 +20,7 @@
 		$('.add_new_module').click(function() {
 			$('#storeModuleModal').modal('show');
 		});
-    $('.add_new_section').click(function() {
+    	$('.add_new_section').click(function() {
 			$('#storeSectionModal').modal('show');
 		});
 
@@ -348,46 +348,8 @@
 									<input type="hidden" name="course_id" value="{{$course->id}}">
 									<fieldset>
 
-										<div class="form-group row">
-
-											<label class="col-lg-4 col-form-label">Module </label>
-
-											<div class="col-lg-8">
-
-											<select class="form-control" name="module_id" id="slot_module_id">
-												<option value="">Select Module</option>
-												@foreach($modules as $module_name)
-												<option value="{{$module_name->id}}">{{$module_name->name}}</option>
-												@endforeach
-											</select>
-
-											</div>
-
-										</div>
-                    <div class="form-group row">
-                      <label class="col-lg-4 col-form-label">Skill Level </label>
-                        <div class="col-lg-8">
-                          <select class="form-control" required name="skill_level_id">
-                            <option value="">Select Skill Level</option>
-                            @forelse($skill_levels as $skill_level)
-                            <option value="{{$skill_level->id}}">{{$skill_level->name}}</option>
-                            @empty
-                            @endforelse
-                          </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-4 col-form-label">Language </label>
-                        <div class="col-lg-8">
-                          <select class="form-control" required name="language_id">
-        										<option value="">Select Language</option>
-        										@forelse($languages as $language)
-        										<option value="{{$language->id}}">{{$language->name}}</option>
-        										@empty
-        										@endforelse
-        									</select>
-                        </div>
-                      </div>
+										
+                    
 
 
 										<div class="form-group row">
@@ -568,7 +530,7 @@
 									<p class="mb-3">{{$course->description}}</p>
 
 									<div class="col-md-4">
-										<img src="../{{$course->course_picture}}"  class="card-img">
+										<img src="{{asset($course->course_picture)}}"  class="card-img">
 									</div>
 
 				          <!-- <h6 class="font-weight-semibold">Course program</h6>
@@ -723,7 +685,8 @@
 																		<a href="{{route('delete-slot',['id' => $slot->id])}}"
 																			class="dropdown-item" onclick="return confirm('Are you sure?');">
 																			<i class="icon-trash"></i> Delete</a>
-																		<a href="#" class="dropdown-item"><i class="icon-mail5"></i> View Bookings</a>
+																		<a  class="dropdown-item update_zoom" Onclick="UpdateZoom({{$slot->id}})"><i class="icon-link"></i> Update Zoom Links</a>
+																		<a  class="dropdown-item update_video" Onclick="UpdateVideo({{$slot->id}})"><i class="icon-link"></i> Update Video Links</a>
 																	</div>
 					                    	</div>
 								             </div>
@@ -752,6 +715,30 @@
 								<!-- SLOT OVERVIEW -->
 							</div>
 
+							<div class="tab-pane fade" id="course-attendees">
+								<div class="table-responsive">
+									<table class="table table-striped table-striped">
+										<thead>
+											<th>S.No</th>
+											<th>Student Name</th>
+											<th>Slot Name</th>
+										</thead>
+										<tbody>
+											@forelse($students as $student)
+											<tr>
+												<td>{{$loop->iteration}}</td>
+												<td>{{$student->student->name}}</td>
+												<td>{{$student->slot->name}}</td>
+											</tr>
+											@empty
+											<tr>
+												<td>No Active Students Found!</td>
+											</tr>
+											@endforelse
+										</tbody>
+									</table>
+								</div>
+							</div>
 
 
 
@@ -810,5 +797,14 @@ function EditSection(id)
   		$("#updateSectionModal").modal('show');
   	}
   });
+}
+
+function UpdateZoom(id)
+{
+
+}
+function UpdateVideo(id)
+{
+
 }
 </script>

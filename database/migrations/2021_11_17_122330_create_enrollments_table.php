@@ -19,10 +19,10 @@ class CreateEnrollmentsTable extends Migration
             $table->foreignId('student_id');
             $table->foreignId('course_id');
             $table->foreignId('slot_id');
-            $table->integer('payment_status');
+            $table->text('payment_status');
             $table->double('amount_payable',16,2);
             $table->double('amount_paid',16,2);
-            $table->integer('transaction_id');
+            $table->text('transaction_id');
             $table->integer('status');
             $table->text('remarks');
             $table->timestamps();

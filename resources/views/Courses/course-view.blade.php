@@ -88,8 +88,8 @@
 								<th>S.N</th>
 								<th>Category</th>
 								<th>Course</th>
-								<th>Modules</th>
-								<th>Slots</th>
+								<th>Skill Level</th>
+								<th>Language</th>
 								<th>Author</th>
 								<!-- <th>Start Date</th>
 								<th>End Date</th> -->
@@ -107,8 +107,8 @@
 								<td>{{$loop->iteration}}</td>
 								<td>{{$course->category->cat_name}}</td>
 								<td>{{$course->name}}</td>
-								<td>Modules</td>
-								<td>Slots</td>
+								<td>{{$course->skill_level->name}}</td>
+								<td>{{$course->language->name}}</td>
 								<td>{{$course->author->name}}</td>
 								<!-- <td>{{$course->start_date}}</td>
 								<td>{{$course->end_date}}</td> -->

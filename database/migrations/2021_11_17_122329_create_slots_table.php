@@ -29,8 +29,6 @@ class CreateSlotsTable extends Migration
             $table->integer("status")->nullable();
             $table->text("video_url")->nullable();
             $table->text("zoom_url")->nullable();
-            $table->foreignId("skill_level_id");
-            $table->foreignId("language_id");
             $table->timestamps();
             $table->softDeletes();
 

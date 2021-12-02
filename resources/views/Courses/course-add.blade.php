@@ -116,6 +116,34 @@
 								    </div>
 
 
+								    <div class="mt-5 form-group row">
+										<label class="col-lg-3 col-form-label">Skill Levels:</label>
+										<div class="col-lg-9">
+											<select class="form-control required" id="skill_level_id" name="skill_level_id">
+
+						                        <option value="">Choose Skill Level</option>
+						                        @foreach($skill_levels as $skill_level)
+						                        <option value="{{$skill_level->id}}">{{$skill_level->name}}</option>
+						                        @endforeach
+
+								                </select>
+										</div>
+								    </div>
+
+								    <div class="mt-5 form-group row">
+										<label class="col-lg-3 col-form-label">Languages:</label>
+										<div class="col-lg-9">
+											<select class="form-control required" id="language_id" name="language_id">
+
+						                        <option value="">Choose Language</option>
+						                        @foreach($languages as $language)
+						                        <option value="{{$language->id}}">{{$language->name}}</option>
+						                        @endforeach
+
+								                </select>
+										</div>
+								    </div>
+
 									<div class="form-group row">
 										<label class="col-lg-3 col-form-label">Course Name:</label>
 										<div class="col-lg-9">

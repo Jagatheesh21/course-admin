@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Module;
 use App\Models\Slot;
 use App\Models\Language;
+use App\Models\Enrollment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Helper\Files;
@@ -29,7 +30,9 @@ class CourseController extends Controller
     public function addCourse()
     {
         $categories = Category::all();
-        return view('Courses.course-add',['categories' => $categories]);
+        $languages = Language::all();
+        $skill_levels = SkillLevel::all();
+        return view('Courses.course-add',['categories' => $categories,'languages' => $languages,'skill_levels'=>$skill_levels]);
     }
 
     public function viewCourse()
@@ -47,20 +50,22 @@ class CourseController extends Controller
       $slots = Slot::where('course_id',$course->id)->get();
       $languages = Language::all();
       $skill_levels = SkillLevel::all();
+      $students = Enrollment::where('course_id',$course->id)->get();
 DB::commit();
       }catch (\Exception $e) {
                   //Rollback Transaction
                 DB::rollback();
                 return back()->with('message',$e);
             }
-      return view('Courses.course_overview',['languages'=>$languages,'skill_levels'=>$skill_levels,'course'=>$course,'modules'=>$modules,'slots'=>$slots]);
+      return view('Courses.course_overview',['languages'=>$languages,'skill_levels'=>$skill_levels,'course'=>$course,'modules'=>$modules,'slots'=>$slots,'students'=>$students]);
     }
 
     public function storeCourse(Request $request)
     {
+      //dd($request->all());
       $file = $request->file;
-      DB::beginTransaction();
-         try{
+      // DB::beginTransaction();
+      //    try{
       $expanse = Course::where('category_id',$request->category_id)->where('name', $request->name)->first();
       if ($expanse) {
           return back()->with('error', 'Course Already Available');
@@ -75,9 +80,7 @@ DB::commit();
         {
           $fileName = $file->getClientOriginalName();
           $file->move($path, $fileName);
-      
-          //$request->file->move($path, $fileName);
-               
+                     
         }
         $course = new Course;
         $course->category_id = $request->category_id;
@@ -86,14 +89,17 @@ DB::commit();
         $course->description = $request->description;
         $course->author_id = $request->author_id;
         $course->tags = $request->tags;
+        $course->skill_level_id = $request->skill_level_id;
+        $course->language_id = $request->language_id;
+        $course->tags = $request->tags;
         $course->course_picture = 'courses/'.$fileName;
         $course->save();
-DB::commit();
-      }catch (\Exception $e) {
-                  //Rollback Transaction
-                DB::rollback();
-                return back()->with('message',$e);
-            }
+      //   DB::commit();
+      // }catch (\Exception $e) {
+      //             //Rollback Transaction
+      //           DB::rollback();
+      //           return back()->with('message',$e);
+      //       }
         return redirect(route('view-course'))->with('message', 'Course Added Successfully');
     }
 
@@ -128,6 +134,8 @@ DB::commit();
       $course->description = $request->description;
       $course->tags = $request->tags;
       $course->course_picture = $fileName;
+      $course->skill_level_id = $request->skill_level_id;
+      $course->language_id = $request->language_id;
       $course->save();
       DB::commit();
       }catch (\Exception $e) {
